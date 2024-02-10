@@ -1,2 +1,2 @@
 # proyecto-777
-proyecto tipo mercado libre de servicios
+Proyecto de marketplace de servicios.
