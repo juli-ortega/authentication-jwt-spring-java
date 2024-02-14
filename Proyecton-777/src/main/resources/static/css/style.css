@@ -20,7 +20,7 @@ html {
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    
 }
 h1{
     margin: 0;
@@ -40,6 +40,8 @@ img{
     width: 100%;
     
     background: linear-gradient(45deg,#ff0066d3,#8223d670,#0040ff79,#27d67979,#3befff51);
+    /*background: linear-gradient(45deg,#0e012f,#3603ac,#01279a,#004cff79,#009dff79,#00eaff51);*/
+
     background-size: 300% 300%;
     animation: color 12s ease-in-out infinite;
 }
@@ -70,30 +72,14 @@ img{
     text-decoration: none;
 }
 .informacion{
-    max-width: 1200px;
-    width: 95%;
-    margin: 3rem auto 0 auto ;
-    
-    
-}
-
-
-@media (min-width: 768px) {
-    .informacion{
-        display: grid;
-        grid-template-columns: 50% 50%;
-        grid-template-columns: repeat(2 , 50%);
-        grid-template-columns: 1fr 1fr;
-        grid-template-columns: repeat(2 , 1fr);/*diferentes formas*/
-        align-items: center;
-        column-gap: 2rem;
-    }
+    text-align: center;
+    margin-top: 8rem;
 }
 
 .texto_principal{
     color: var(--blanco);
     font-family: 'Barlow Semi Condensed', sans-serif;
-    font-size: 2rem;
+    font-size: 3rem;
 }
 .freelancer{
     color: var(--rosado);
@@ -153,6 +139,63 @@ img{
     height: 2rem;
     
 }
+.buscador{
+    margin-top: 3rem;
+    position: relative;
+}
+input{
+    width: 35rem;
+    padding: 1rem;
+    padding-right: 20rem;
+    border-radius: 5px ;
+    border: 0;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+
+}
+button{
+    
+    background-color: var(--rosado);
+    padding: 1rem;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: var(--morado);
+}
+/*SERVICIOS*/
+.servicios{
+    margin-top: 6rem;
+}
+
+.servicio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    color: var(--blanco);
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.servicio_borde{
+    border: 1px solid var(--blanco);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+.servicio_borde:hover{
+    border-color: var(--rosado);
+    background-color: var(--rosado);
+}
+
+
+
 
 .scrol{
     height: 10rem;
