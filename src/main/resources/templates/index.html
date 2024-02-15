@@ -31,8 +31,8 @@
             <ul class="menu">
 
                 <li><a th:href="@{/}"> Home </a></li>
-                <li><a th:href="@{/userController/user}">Iniciar Sesión</a></li>
-                <li><a th:href="@{/userController/register}">Registrarse</a></li>
+                <li><a th:href="@{/user/login}">Iniciar Sesión</a></li>
+                <li><a th:href="@{/user/register}">Registrarse</a></li>
 
                 <div class="usuario">
                     <a href="">
@@ -42,7 +42,7 @@
                         </svg>
 
                     </a>
-                    <li><a class="menu_modificado" href="#">Perfil</a></li>
+                    <li><a class="menu_modificado" th:href="@{/user}">Perfil</a></li>
 
                 </div>
             </ul>
