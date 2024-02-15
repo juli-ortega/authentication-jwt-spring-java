@@ -8,6 +8,11 @@ import proyecton.com.Proyecton7.respositorios.UsuarioRepositorio;
 
 @Service
 public class UsuarioServicio {
+<<<<<<< HEAD
+    public void crearUsuario(){
+    
+    
+=======
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
@@ -25,5 +30,6 @@ public class UsuarioServicio {
         } catch (Exception ex) {
             throw new MiException(ex);
         }
+>>>>>>> 67613922016daf01583e9a6dae9096a02794b89a
     }
 }
