@@ -1,13 +1,10 @@
+
 package proyecton.com.Proyecton7;
-        
-import proyecton.com.proyecton7.CustomUserDetailsService;
-import com.grupo5.AppSalud.servicios.ServicioProfesional;
-import com.grupo5.AppSalud.servicios.ServicioUsuario;
-import javax.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,30 +12,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import proyecton.com.Proyecton7.servicios.UsuarioServicio;
 
 @Configuration
-@EnabledWebSecurity
-@EnableAspectJAutoProxyGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SeguridadWeb extends WebSecurityConfigurerAdapter {
 
     /////Se agrego seguridad para el login
     @Autowired
     public UsuarioServicio usuarioServicio;
 
-    @Autowired
-    public CustomUserDetailsService customUserDS;
-
-    @Autowired
-    public ServicioProfesional servicioProfesional;
-
-    @Autowired
-    public void configueGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDS)
-                .passwordEncoder(new BCryptPasswordEncoder());
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/usuario/*").hasAnyRole("PACIENTE", "ADMIN")
                 .antMatchers("/profesional/*").hasAnyRole("MEDICO", "ADMIN")
