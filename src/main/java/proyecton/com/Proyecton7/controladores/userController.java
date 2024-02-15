@@ -32,6 +32,7 @@ public class userController {
         }catch (Exception ex){
             throw new MiException(ex);
         }
+<<<<<<< HEAD:Proyecton-777/src/main/java/proyecton/com/Proyecton7/controladores/userController.java
         return "signin.html";
     }
     
@@ -44,5 +45,8 @@ public class userController {
             throw new MiException(ex);
         }
         return"index.html"; //Modificar a vista de usuario
+=======
+        return null;
+>>>>>>> develop:src/main/java/proyecton/com/Proyecton7/controladores/userController.java
     }
 }
