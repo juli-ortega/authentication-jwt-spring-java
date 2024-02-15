@@ -19,11 +19,13 @@ public class Usuario {
 
     @Id
     private String dni;
-    private String nombreCompleto;
+    private String first_name;
+    private String last_name;
     private String email;
-    private String contraseña;
-    private String telefono;
+    private String password;
+    private String phone_number;
     @Enumerated(EnumType.STRING)
     private Roles rol;
     private Boolean alta;
+
 }
