@@ -8,11 +8,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import proyecton.com.Proyecton7.excepciones.MiException;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/userController")
 public class userController {
+    @GetMapping("/user")
+    public String user(){
+        return "index.html" ;
+              
+    }
     @GetMapping("/signin")
     public String iniciar() {
-        return "signin.html";
+        try {
+                 return "signin.html";
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("lpm");
+        return null;
+   
     }
 
     @GetMapping("/register")
@@ -46,6 +58,9 @@ public class userController {
         }
         return"index.html"; //Modificar a vista de usuario
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85638263299a947863b0b7b592b80f706611490a
     }
 }
