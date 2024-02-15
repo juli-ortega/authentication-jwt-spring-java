@@ -8,11 +8,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import proyecton.com.Proyecton7.excepciones.MiException;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/userController")
 public class userController {
+    @GetMapping("/user")
+    public String user(){
+        return "index.html" ;
+              
+    }
     @GetMapping("/signin")
     public String iniciar() {
-        return "signin.html";
+        try {
+                 return "signin.html";
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("lpm");
+        return null;
+   
     }
 
     @GetMapping("/register")
@@ -32,7 +44,7 @@ public class userController {
         }catch (Exception ex){
             throw new MiException(ex);
         }
-<<<<<<< HEAD:Proyecton-777/src/main/java/proyecton/com/Proyecton7/controladores/userController.java
+
         return "signin.html";
     }
     
@@ -45,8 +57,6 @@ public class userController {
             throw new MiException(ex);
         }
         return"index.html"; //Modificar a vista de usuario
-=======
-        return null;
->>>>>>> develop:src/main/java/proyecton/com/Proyecton7/controladores/userController.java
+
     }
 }
