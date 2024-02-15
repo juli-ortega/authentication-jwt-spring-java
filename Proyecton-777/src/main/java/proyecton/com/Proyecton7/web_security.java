@@ -1,11 +1,13 @@
-import com.grupo5.AppSalud.servicios.CustomUserDetailsService;
+package proyecton.com.Proyecton7;
+        
+import proyecton.com.proyecton7.CustomUserDetailsService;
 import com.grupo5.AppSalud.servicios.ServicioProfesional;
 import com.grupo5.AppSalud.servicios.ServicioUsuario;
 import javax.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import proyecton.com.Proyecton7.servicios.UsuarioServicio;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnabledWebSecurity
+@EnableAspectJAutoProxyGlobalMethodSecurity(prePostEnabled = true)
 public class SeguridadWeb extends WebSecurityConfigurerAdapter {
 
     /////Se agrego seguridad para el login

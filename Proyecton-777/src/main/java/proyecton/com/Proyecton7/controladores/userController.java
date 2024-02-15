@@ -24,14 +24,25 @@ public class userController {
     public String registered(@RequestParam String dni, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String email, @RequestParam String password, @RequestParam String phone_number) throws MiException {
         try{
             System.out.println("DNI: " + dni);
-        System.out.println("Nombre: " + first_name);
-        System.out.println("Apellido: " + last_name);
-        System.out.println("Correo Electrónico: " + email);
-        System.out.println("Contraseña: " + password);
-        System.out.println("Teléfono: " + phone_number);
+            System.out.println("Nombre: " + first_name);
+            System.out.println("Apellido: " + last_name);
+            System.out.println("Correo Electrónico: " + email);
+            System.out.println("Contraseña: " + password);
+            System.out.println("Teléfono: " + phone_number);
         }catch (Exception ex){
             throw new MiException(ex);
         }
-        return ;
+        return "signin.html";
+    }
+    
+    @PostMapping ("/sign")
+    public String sign(@RequestParam String email, @RequestParam String password) throws MiException{
+        try {
+            System.out.println("Correo Electrónico: " + email);
+            System.out.println("Contraseña: " + password);
+        } catch (Exception ex) {
+            throw new MiException(ex);
+        }
+        return"index.html"; //Modificar a vista de usuario
     }
 }
