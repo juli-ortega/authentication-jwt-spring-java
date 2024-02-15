@@ -1,4 +1,4 @@
-package main.java.proyecton.com.Proyecton7;
+package proyecton.com.Proyecton7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
