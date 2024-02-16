@@ -15,7 +15,7 @@ import proyecton.com.Proyecton7.enumeraciones.Roles;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class User {
 
     @Id
     private String dni;

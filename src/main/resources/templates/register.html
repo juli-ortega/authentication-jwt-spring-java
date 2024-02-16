@@ -6,10 +6,9 @@
     <title>Registration Form</title>
 </head>
 <body>
-<form action="/registered" method="post">
     <div class="container">
         <h1>Registro de Usuario</h1>
-        <form action="procesar_formulario.php" method="post">
+        <form action="/user/registered" method="post">
             <label for="dni">DNI:</label>
             <input type="text" id="dni" name="dni" required><br>
 
@@ -33,8 +32,7 @@
     </div>
 
     <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
+        <p>Already have an account? <a th:href="@{/user/login}">Sign in</a>.</p>
     </div>
-</form>
 </body>
 </html>
