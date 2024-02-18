@@ -7,34 +7,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import proyecton.com.Proyecton7.entities.User;
-import proyecton.com.Proyecton7.enumeraciones.Roles;
 import proyecton.com.Proyecton7.excepciones.MiException;
-import proyecton.com.Proyecton7.respositorios.UserRepository;
 import proyecton.com.Proyecton7.servicios.UserService;
 
-import java.util.Optional;
-
 @Controller
-@RequestMapping("/user")
-public class userController {
-    
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
-
-    @GetMapping("/profile")
-    public String user() {
-        return "profile.html";
+@RequestMapping("/admin")
+public class adminController {
+    @GetMapping("/admin")
+    public String adminHome(){
+        return "adminHome.html" ;
     }
-
-
     @GetMapping("/register")
     public String registrarse() {
         return "register.html";
     }
-
+    @Autowired
+    UserService userService;
     @PostMapping("/registered")
     public String registered(@RequestParam String dni, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String email, @RequestParam String password, @RequestParam String phone_number, ModelMap model) throws MiException {
 
@@ -59,38 +47,5 @@ public class userController {
         }
 
         return "login.html";
-    }
-    @GetMapping("/login")
-    public String iniciar() {
-        try {
-            return "login.html";
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("lpm");
-        return null;
-
-    }
-
-    @PostMapping("/signin")
-    public String sign(@RequestParam String email, @RequestParam String password) throws MiException {
-        try {
-            Optional<User> response = userRepository.serchForEmail(email);
-            if (response.isPresent()){
-                User user = response.get();
-                if (user.getRol().equals(Roles.ADMIN)){
-                    return "redirect:/admin/admin";
-                }
-
-            }
-            
-        } catch (Exception ex) {
-            throw new MiException(ex.toString());
-            //model.put("mistake", ex.getMessage());  //SE DEBE CREAR EL .getMessage CORRESPONDIENTE 
-            
-        }
-        
-        return "redirect:/"; //Modificar a vista de usuario
-
     }
 }

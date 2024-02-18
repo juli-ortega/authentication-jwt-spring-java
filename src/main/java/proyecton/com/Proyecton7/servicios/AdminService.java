@@ -1,19 +1,19 @@
 package proyecton.com.Proyecton7.servicios;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import proyecton.com.Proyecton7.entities.User;
 import proyecton.com.Proyecton7.enumeraciones.Roles;
 import proyecton.com.Proyecton7.excepciones.MiException;
 import proyecton.com.Proyecton7.respositorios.UserRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
-
+public class AdminService {
     @Autowired
     private UserRepository usuarioRepositorio;
 
@@ -57,6 +57,19 @@ public class UserService {
 
     }
 
+    @Transactional
+    public void deleteUsers(String dni) throws MiException {
+        try {
+            Optional<User> response = usuarioRepositorio.findById(dni);
+            if (response.isPresent()) {
+                usuarioRepositorio.deleteAllById(Collections.singleton(dni));
+            }
+        } catch (Exception ex) {
+            throw new MiException(ex.toString());
+        }
+
+    }
+
     public List<User> listUsers() {
         List<User> users = usuarioRepositorio.findAll();
         return users;
@@ -82,5 +95,4 @@ public class UserService {
             throw new MiException("el numero de telefono no puede estar vacio o ser nulo, debe contener almenos 10 caracteres");
         }
     }
-
 }
