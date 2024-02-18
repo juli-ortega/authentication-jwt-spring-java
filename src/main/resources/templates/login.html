@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+</head>
+<body>
+<div id="login_form">
+    <!-- Vista cuando un usuario se registra correctamente-->
+    <div th:if="${success != null}",class="container">
+        <h1>Registro Exitoso</h1>
+        <p th:text="${success}", class="success-message"></p>
+    </div>
+    
+    <form name="f1" method="post" action="/user/signin" id="f1">
+        <label for="username">Email:</label>
+        <input type="text" name="email" id="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <input type="submit" name="login" value="Log In">
+    </form>
+</div>
+</body>
+</html>
