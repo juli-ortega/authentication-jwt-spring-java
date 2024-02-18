@@ -1,10 +1,11 @@
-package proyecton.com.Proyecton7.respositorios;
+package proyecton.com.Proyecton7.servicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import proyecton.com.Proyecton7.entities.Images;
 import proyecton.com.Proyecton7.excepciones.MiException;
+import proyecton.com.Proyecton7.respositorios.ImagesRepository;
 
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public class ServiceImages {
     @Autowired
     private ImagesRepository imagesRepository;
 
-    public Images guardarImagen(MultipartFile archivo) throws MiException { //cambio nombre del método: guardar -> guardarImagen - gise
+    public Images guardarImagen(MultipartFile archivo) throws MiException {
         if (archivo != null){
             try{
                 Images images = new Images();
@@ -25,13 +26,13 @@ public class ServiceImages {
                 return imagesRepository.save(images);
             }catch (Exception e) {
                 System.err.println(e.getMessage());
-//                throw new MiException("Error al guardar imagen"); //agrego mensaje de excepción - gise
+
             }
         }
         return null;
     }
 
-    public Images actualizarImagen(MultipartFile archivo, String idImages) throws MiException{ //cambio nombre del método: actualizar -> actualizarImagen - gise
+    public Images actualizarImagen(MultipartFile archivo, String idImages) throws MiException{
 
         if(archivo != null){
             try {
@@ -52,13 +53,13 @@ public class ServiceImages {
                 return imagesRepository.save(imagen);
             } catch (Exception e) {
                 System.err.println(e.getMessage());
-//                throw new MiException("Error al actualizar imagen"); //agrego mensaje de excepción - gise
+
             }
         }
         return null;
     }
 
-    //Agrego método para eliminar imagen - gise
+
     public Images eliminarImagen(MultipartFile archivo, String idImagen) throws MiException{
 
         if(archivo != null){
