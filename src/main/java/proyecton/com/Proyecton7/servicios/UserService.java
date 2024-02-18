@@ -2,19 +2,22 @@ package proyecton.com.Proyecton7.servicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import proyecton.com.Proyecton7.entities.Usuario;
+import proyecton.com.Proyecton7.entities.User;
 import proyecton.com.Proyecton7.excepciones.MiException;
-import proyecton.com.Proyecton7.respositorios.UsuarioRepositorio;
+import proyecton.com.Proyecton7.respositorios.UserRepository;
 
 @Service
-public class UsuarioServicio {
+public class UserService {
 
     @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
+    private UserRepository usuarioRepositorio;
 
     public void create_user(String dni, String first_name, String last_name, String email, String password, String phone_number) throws MiException {
         // create user by gjohn
-        Usuario new_user = new Usuario();
+        User new_user = new User();
+        
+        //Falta metodo validateUser para corroborar si los parametros fueron ingresados correctamente
+        
         try {
             new_user.setDni(dni);
             new_user.setFirst_name(first_name);
