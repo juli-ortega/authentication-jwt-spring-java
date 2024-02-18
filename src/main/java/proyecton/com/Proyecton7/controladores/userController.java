@@ -58,9 +58,5 @@ public class userController {
         }
         return "index.html"; //Modificar a vista de usuario
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 85638263299a947863b0b7b592b80f706611490a
     }
 }
