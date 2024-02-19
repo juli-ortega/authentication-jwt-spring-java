@@ -29,6 +29,13 @@
 
             <button>Registrarse</button>
         </form>
+        <!--Crear correctamente con los CSS correspondientes-->
+        <!-- Este es un cartel de error para mostrar al usuario-->
+        <div class="error-message" th:if="${mistake !=null}">
+            <p th:text="${mistake}"></p>
+        </div>
+        
+        
     </div>
 
     <div class="container signin">

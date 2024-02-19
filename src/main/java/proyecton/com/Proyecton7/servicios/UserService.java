@@ -7,7 +7,6 @@ import proyecton.com.Proyecton7.entities.User;
 import proyecton.com.Proyecton7.enumeraciones.Roles;
 import proyecton.com.Proyecton7.excepciones.MiException;
 import proyecton.com.Proyecton7.respositorios.UserRepository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +16,9 @@ public class UserService {
     @Autowired
     private UserRepository usuarioRepositorio;
 
+    //Creacion de usuario
     @Transactional
     public void createUser(String dni, String first_name, String last_name, String email, String password, String phone_number) throws MiException {
-        // create user by gjohn
         try {
             validations(dni, first_name, last_name, email, password, phone_number);
             User new_user = new User();
@@ -34,9 +33,9 @@ public class UserService {
         } catch (Exception ex) {
             throw new MiException(ex.toString());
         }
-
     }
-
+    
+    //Modificacion de Usuario
     @Transactional
     public void modifyUser(String dni, String first_name, String last_name, String email, String password, String phone_number) throws MiException {
         try {
@@ -50,18 +49,17 @@ public class UserService {
                 newUser.setPhone_number(phone_number);
                 usuarioRepositorio.save(newUser);
             }
-
         } catch (Exception ex) {
             throw new MiException(ex.toString());
         }
-
     }
 
     public List<User> listUsers() {
         List<User> users = usuarioRepositorio.findAll();
         return users;
     }
-
+    
+    //Sector de MiException
     public void validations(String dni, String first_name, String last_name, String email, String password, String phone_number) throws MiException {
         if (dni.isEmpty() || dni == null) {
             throw new MiException("el dni no puede estar vacio o ser nulo");
@@ -82,5 +80,5 @@ public class UserService {
             throw new MiException("el numero de telefono no puede estar vacio o ser nulo, debe contener almenos 10 caracteres");
         }
     }
-
+    
 }
