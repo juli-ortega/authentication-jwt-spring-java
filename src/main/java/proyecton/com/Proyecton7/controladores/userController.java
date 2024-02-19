@@ -12,7 +12,6 @@ import proyecton.com.Proyecton7.enumeraciones.Roles;
 import proyecton.com.Proyecton7.excepciones.MiException;
 import proyecton.com.Proyecton7.respositorios.UserRepository;
 import proyecton.com.Proyecton7.servicios.UserService;
-
 import java.util.Optional;
 
 @Controller
@@ -28,52 +27,33 @@ public class userController {
     public String user() {
         return "profile.html";
     }
-
-
     @GetMapping("/register")
     public String registrarse() {
         return "register.html";
     }
-
+    @GetMapping("/login")
+    public String iniciar() {
+        return "login.html";
+    }
+    
+    //Controlador de registro de usuario
     @PostMapping("/registered")
     public String registered(@RequestParam String dni, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String email, @RequestParam String password, @RequestParam String phone_number, ModelMap model) throws MiException {
 
         try {
-
-            userService.createUser(dni,
-                    first_name,
-                    last_name,
-                    email,
-                    password,
-                    phone_number);
-            //Listo para crear un usuario, falta conectar en UserService correctamente con BASEDEDATOS
-            //userService.create_user(dni, first_name, last_name, email, password, phone_number);
+            userService.createUser(dni, first_name, last_name, email, password, phone_number);  //redirige a userService y valida todos los parametros
             model.put("success", "Usuario registrado correctamente");
 
-
         } catch (Exception ex) {
-            throw new MiException(ex.toString());   //SE DEBE ELIMINAR ESTA PARTE
-
-            //model.put("mistake", ex.getMessage());  //SE DEBE CREAR EL .getMessage CORRESPONDIENTE
-            //return "register.html";
+            model.put("mistake", ex.getMessage());  
+            return "register.html";
         }
-
         return "login.html";
     }
-    @GetMapping("/login")
-    public String iniciar() {
-        try {
-            return "login.html";
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("lpm");
-        return null;
-
-    }
-
+    
+    //Controlador inicio de sesion
     @PostMapping("/signin")
-    public String sign(@RequestParam String email, @RequestParam String password) throws MiException {
+    public String sign(@RequestParam String email, @RequestParam String password, ModelMap model) throws MiException {
         try {
             Optional<User> response = userRepository.serchForEmail(email);
             if (response.isPresent()){
@@ -81,16 +61,10 @@ public class userController {
                 if (user.getRol().equals(Roles.ADMIN)){
                     return "redirect:/admin/admin";
                 }
-
             }
-            
         } catch (Exception ex) {
-            throw new MiException(ex.toString());
-            //model.put("mistake", ex.getMessage());  //SE DEBE CREAR EL .getMessage CORRESPONDIENTE 
-            
+            model.put("mistake", ex.getMessage());   
         }
-        
-        return "redirect:/"; //Modificar a vista de usuario
-
+        return "redirect:/"; //Modificar a vista de COMPRADOR
     }
 }
