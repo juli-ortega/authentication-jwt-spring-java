@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ADMIN</title>
+</head>
+<body>
+    <h2>Crear Usuario Administrador</h2>
+    <!-- Formulario para crear un usuario administrador -->
+    <form action="/admin/createAdmin" method="post">
+        <!-- Campos de entrada para el usuario administrador -->
+        <label for="dni">DNI:</label><br>
+        <input type="text" id="dni" name="dni"><br>
+        <label for="first_name">Nombre:</label><br>
+        <input type="text" id="first_name" name="first_name"><br>
+        <label for="last_name">Apellido:</label><br>
+        <input type="text" id="last_name" name="last_name"><br>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="password">Contraseña:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <label for="phone_number">Número de teléfono:</label><br>
+        <input type="text" id="phone_number" name="phone_number"><br><br>
+        <!-- Botón para enviar el formulario -->
+        <input type="submit" value="Crear Usuario Administrador">
+    </form>
+    
+    <!--Crear correctamente con los CSS correspondientes-->
+    <!-- Este es un cartel de error para mostrar al usuario-->
+    <div class="error-message" th:if="${mistake !=null}">
+        <h1>ERRORES</h1>
+        <p th:text="${mistake}"></p>
+    </div>
+    <!-- Vista cuando un usuario se registra correctamente-->
+    <div th:if="${success != null}",class="container">
+        <h1>Registro Exitoso</h1>
+        <p th:text="${success}", class="success-message"></p>
+    </div>
+    
+
+</body>
+</html>

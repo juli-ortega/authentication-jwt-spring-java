@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import proyecton.com.Proyecton7.entities.User;
+import proyecton.com.Proyecton7.enumeraciones.Roles;
 import proyecton.com.Proyecton7.excepciones.MiException;
+import proyecton.com.Proyecton7.respositorios.UserRepository;
 import proyecton.com.Proyecton7.servicios.UserService;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -16,70 +20,51 @@ public class userController {
     
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/profile")
     public String user() {
         return "profile.html";
     }
-
-    @GetMapping("/login")
-    public String iniciar() {
-        try {
-            return "login.html";
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("lpm");
-        return null;
-
-    }
-
     @GetMapping("/register")
     public String registrarse() {
         return "register.html";
     }
-
-    @PostMapping("/registered")
-    public String registered(@RequestParam String dni, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String email, @RequestParam String password, @RequestParam String phone_number, ModelMap model) throws MiException {
-        
-        try {
-            //SE DEBE ELIMINAR TODO ESTO
-            System.out.println("DNI: " + dni);
-            System.out.println("Nombre: " + first_name);
-            System.out.println("Apellido: " + last_name);
-            System.out.println("Correo Electrónico: " + email);
-            System.out.println("Contraseña: " + password);
-            System.out.println("Teléfono: " + phone_number);  
-            
-            //Listo para crear un usuario, falta conectar en UserService correctamente con BASEDEDATOS
-            //userService.create_user(dni, first_name, last_name, email, password, phone_number);
-            model.put("success", "Usuario registrado correctamente");
-            
-            
-        } catch (Exception ex) {
-            throw new MiException(ex);   //SE DEBE ELIMINAR ESTA PARTE
-            
-            //model.put("mistake", ex.getMessage());  //SE DEBE CREAR EL .getMessage CORRESPONDIENTE
-            //return "register.html";
-        }
-
+    @GetMapping("/login")
+    public String iniciar() {
         return "login.html";
     }
+    
+    //Controlador de registro de usuario
+    @PostMapping("/registered")
+    public String registered(@RequestParam String dni, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String email, @RequestParam String password, @RequestParam String phone_number, ModelMap model) throws MiException {
 
-    @PostMapping("/signin")
-    public String sign(@RequestParam String email, @RequestParam String password) throws MiException {
         try {
-            System.out.println("Correo Electrónico: " + email);
-            System.out.println("Contraseña: " + password);
-            
-            
-        } catch (Exception ex) {
-            throw new MiException(ex);
-            //model.put("mistake", ex.getMessage());  //SE DEBE CREAR EL .getMessage CORRESPONDIENTE 
-            
-        }
-        
-        return "redirect:/"; //Modificar a vista de usuario
+            userService.createUser(dni, first_name, last_name, email, password, phone_number);  //redirige a userService y valida todos los parametros
+            model.put("success", "Usuario registrado correctamente");
 
+        } catch (Exception ex) {
+            model.put("mistake", ex.getMessage());  
+            return "register.html";
+        }
+        return "login.html";
+    }
+    
+    //Controlador inicio de sesion
+    @PostMapping("/signin")
+    public String sign(@RequestParam String email, @RequestParam String password, ModelMap model) throws MiException {
+        try {
+            Optional<User> response = userRepository.serchForEmail(email);
+            if (response.isPresent()){
+                User user = response.get();
+                if (user.getRol().equals(Roles.ADMIN)){
+                    return "redirect:/admin/admin";
+                }
+            }
+        } catch (Exception ex) {
+            model.put("mistake", ex.getMessage());   
+        }
+        return "redirect:/"; //Modificar a vista de COMPRADOR
     }
 }
