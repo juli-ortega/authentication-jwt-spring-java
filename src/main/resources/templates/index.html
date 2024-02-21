@@ -11,10 +11,11 @@
 
     <link rel="stylesheet" th:href="@{css/style.css}">
     <title>Digitech - Plataforma de Servicios Freelancer</title>
+    
 </head>
 <body>
+    
 <header>
-
     <div class="container">
         <nav class="nav">
             <a class="logo" href="index.html">
@@ -28,14 +29,22 @@
                 </div>
 
             </a>
+            <div id="modal_container" class="modal-container">
+                <div class="modal">
+                    <div id = "popup-content"></div> 
+                    <p id="close">Cerrar</p>
+                </div>
+            </div>
             <ul class="menu">
                 <li><a th:href="@{/}"> Home </a></li>
-                <li class="dropdown popup" id = "popup">
-                    <div class="dropdown-content popup-content" id= "popup-content">
-                        <a onclick="loadPopupContent('/user/login')">Iniciar Sesión</a>
-                        <a href="/user/register">Registrarse</a>
-                    </div>
+                <li>
+                    <!--onclick="loadPopupContent('/user/login')" 
+                    th:onclick = "'modalContainerToggle()'"
+                    -->
+                    <a id = 'open'>Iniciar Sesión</a>
                 </li>
+                
+                <li><a href="/user/register">Registrarse</a></li>
                 <li>
                     <div class="usuario">
                         <a href="#">
@@ -86,5 +95,6 @@
 <div class="scrol">
 </div>
 <script src="css/js/01.js"></script>
+<script src="css/js/02.js"></script>
 </body>
 </html>

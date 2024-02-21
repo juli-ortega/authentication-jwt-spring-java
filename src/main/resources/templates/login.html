@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;700;900&family=Rubik+Bubbles&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@400;700;900&display=swap"
+        rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
 </head>
 <body>
-<div id="login_form">
+<div class="dropdown" id="login_form">
     <!-- Vista cuando un usuario se registra correctamente-->
     <div th:if="${success != null}",class="container">
         <h1>Registro Exitoso</h1>
