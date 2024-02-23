@@ -23,7 +23,6 @@ public class AuthController {
 
     @PostMapping(value = "login")
     public RedirectView login(@RequestBody LoginRequest request, HttpServletResponse response) {
-        System.out.println(request.toString());
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         String token = jwtService.getToken(userDetails);
         response.addHeader("Authorization", "Bearer " + token);
@@ -31,7 +30,13 @@ public class AuthController {
     }
 
     @PostMapping(value = "register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) throws Exception {
-            return ResponseEntity.ok(authService.register(request));
+    public String register(@ModelAttribute RegisterRequest request) throws Exception {
+        System.out.println(request.getDni());
+        System.out.println(request.getFirstname());
+        System.out.println(request.getPassword());
+        authService.register(request);
+        return "login.html";
+
+
     }
 }

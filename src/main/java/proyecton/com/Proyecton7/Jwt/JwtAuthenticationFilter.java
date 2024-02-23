@@ -1,46 +1,77 @@
-package proyecton.com.Proyecton7.Jwt;
+package proyecton.com.Proyecton7.jwt;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import proyecton.com.Proyecton7.config.SecurityConfig;
+import org.springframework.util.StringUtils;
 
-import java.io.IOException;
-import java.util.Optional;
-import java.util.stream.Stream;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    public static final String COOKIE_NAME = "auth_by_cookie";
+
+    private final proyecton.com.Proyecton7.Jwt.JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest,
-                                    HttpServletResponse httpServletResponse,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        Optional<Cookie> cookieAuth = Stream.of(Optional.ofNullable(httpServletRequest.getCookies()).orElse(new Cookie[0]))
-                .filter(cookie -> COOKIE_NAME.equals(cookie.getName()))
-                .findFirst();
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-        if (cookieAuth.isPresent()) {
-            SecurityContextHolder.getContext().setAuthentication(
-                    new PreAuthenticatedAuthenticationToken(cookieAuth.get().getValue(), null));
+        final String token = getTokenFromRequest(request);
+        final String username;
+
+        if (token==null)
+        {
+            filterChain.doFilter(request, response);
+            return;
         }
 
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        username=jwtService.getUsernameFromToken(token);
+
+        if (username!=null && SecurityContextHolder.getContext().getAuthentication()==null)
+        {
+            UserDetails userDetails=userDetailsService.loadUserByUsername(username);
+
+            if (jwtService.isTokenValid(token, userDetails))
+            {
+                UsernamePasswordAuthenticationToken authToken= new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        null,
+                        userDetails.getAuthorities());
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+
+        }
+
+        filterChain.doFilter(request, response);
     }
+
+    private String getTokenFromRequest(HttpServletRequest request) {
+        final String authHeader=request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer "))
+        {
+            return authHeader.substring(7);
+        }
+        return null;
+    }
+
+
+
+
 }
-
-

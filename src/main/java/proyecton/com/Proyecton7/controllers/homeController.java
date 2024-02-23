@@ -18,8 +18,6 @@ public class homeController {
     public String login(){
         return "login";
     }
-    @PostMapping(value = "/")
-    public String welcome() {
-        return "index.html";
-    }
+    @GetMapping("/auth/register")
+    public String register(){return "register"; }
 }

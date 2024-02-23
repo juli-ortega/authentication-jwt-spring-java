@@ -29,23 +29,19 @@ public class AuthService {
                 .build();
     }
 
-    public AuthResponse register(RegisterRequest request) throws Exception {
+    public void register(RegisterRequest request) throws Exception {
         try {
             User user = User.builder()
                     .username(request.getUsername())
                     .password(passwordEncoder.encode(request.getPassword()))
-                    .first_name(request.getFirstname())
-                    .last_name(request.getLastname())
+                    .firstname(request.getFirstname())
+                    .lastname(request.getLastname())
                     .email(request.getEmail())
                     .dni(request.getDni())
                     .phone_number(request.getPhone_number())
                     .rol(Roles.USER)
                     .build();
-            System.out.println(user);
             userRepository.save(user);
-            return AuthResponse.builder()
-                    .token(jwtService.getToken(user))
-                    .build();
         } catch (Exception ex) {
             throw new Exception(ex.toString());
         }
