@@ -22,21 +22,17 @@ public class AuthController {
 
 
     @PostMapping(value = "login")
-    public RedirectView login(@RequestBody LoginRequest request, HttpServletResponse response) {
+    public RedirectView login(@ModelAttribute LoginRequest request, HttpServletResponse response) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = jwtService.getToken(userDetails);
+        String token = String.valueOf(authService.login(request));
         response.addHeader("Authorization", "Bearer " + token);
+        System.out.println("token: " + token);
         return new RedirectView("/");
     }
 
     @PostMapping(value = "register")
     public String register(@ModelAttribute RegisterRequest request) throws Exception {
-        System.out.println(request.getDni());
-        System.out.println(request.getFirstname());
-        System.out.println(request.getPassword());
         authService.register(request);
         return "login.html";
-
-
     }
 }
