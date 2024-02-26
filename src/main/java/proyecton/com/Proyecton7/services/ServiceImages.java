@@ -1,11 +1,11 @@
-package proyecton.com.Proyecton7.servicios;
+package proyecton.com.Proyecton7.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import proyecton.com.Proyecton7.entities.Images;
-import proyecton.com.Proyecton7.excepciones.MiException;
-import proyecton.com.Proyecton7.respositorios.ImagesRepository;
+import proyecton.com.Proyecton7.exceptions.MiException;
+import proyecton.com.Proyecton7.repositories.ImagesRepository;
 
 import java.util.Optional;
 
