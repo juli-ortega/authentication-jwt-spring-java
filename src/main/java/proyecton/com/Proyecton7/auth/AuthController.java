@@ -24,7 +24,7 @@ public class AuthController {
     @PostMapping(value = "login")
     public RedirectView login(@ModelAttribute LoginRequest request, HttpServletResponse response) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = String.valueOf(authService.login(request));
+        String token = authService.login(request).token;
         response.addHeader("Authorization", "Bearer " + token);
         System.out.println("token: " + token);
         return new RedirectView("/");
