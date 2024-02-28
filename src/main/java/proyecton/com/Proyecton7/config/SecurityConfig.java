@@ -25,10 +25,25 @@ public class SecurityConfig {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(authRequest ->
-              authRequest
-                      .requestMatchers("/auth/**", "/**", "/resources/static/css", "/resources/static/js").permitAll()
-                      .requestMatchers("/auth/login").permitAll()
-                      .anyRequest().authenticated()
+                    {
+                        try {
+                            authRequest
+                                    .requestMatchers("/auth/**", "/**", "/resources/static/css", "/resources/static/js").permitAll()
+                                    .requestMatchers("/auth/login").permitAll()
+                                    .anyRequest().authenticated()
+                                    .and().formLogin()
+                                    .loginPage("/auth/login")
+                                    .loginProcessingUrl("/auth/logincheck")
+                                    .usernameParameter("username")
+                                    .passwordParameter("password")
+                                    .defaultSuccessUrl("/").permitAll()
+                                    .and().logout().logoutUrl("/auth/login")
+                                    .logoutUrl("/logout")
+                                    .logoutSuccessUrl("/").permitAll().and().csrf().disable();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 )
             .sessionManagement(sessionManager->
                 sessionManager
