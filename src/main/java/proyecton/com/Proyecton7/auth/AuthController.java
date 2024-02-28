@@ -1,7 +1,7 @@
 package proyecton.com.Proyecton7.auth;
 
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import proyecton.com.Proyecton7.Jwt.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,8 +33,12 @@ public class AuthController {
     }
 
     @PostMapping(value = "register")
-    public String register(@ModelAttribute RegisterRequest request) throws Exception {
+    public RedirectView register(@ModelAttribute RegisterRequest request,HttpServletResponse response) throws Exception {
         authService.register(request);
-        return "login.html";
+        String requestString = URLEncoder.encode(String.valueOf(request), StandardCharsets.UTF_8);
+        Cookie cookie = new Cookie("user", requestString);
+        response.addCookie(cookie);
+        return new RedirectView("/");
     }
+
 }
