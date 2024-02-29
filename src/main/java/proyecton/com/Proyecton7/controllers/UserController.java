@@ -42,7 +42,7 @@ public class UserController {
                 modelMap.put("username", username);
 
                 // Realizar acciones específicas para el usuario autenticado
-                return "profile.html";
+                return "userHome.html";
             } catch (Exception e) {
                 // Manejar el error de validación del token JWT
                 return "Error al validar el token JWT";

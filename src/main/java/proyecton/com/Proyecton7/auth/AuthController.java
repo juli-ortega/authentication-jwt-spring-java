@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,7 +31,7 @@ public class AuthController {
         // Agregar la cookie a la respuesta HTTP
         httpResponse.addCookie(cookie);
 
-        return "Login.html";
+        return "{\"message\": \"Login successful\"}";
     }
 
     @PostMapping(value = "register")
@@ -41,7 +42,7 @@ public class AuthController {
 
 
     @PostMapping("/logout")
-    public String logout(HttpServletResponse response) {
+    public RedirectView logout(HttpServletResponse response) {
         // Eliminar la cookie que contiene el token JWT
         Cookie cookie = new Cookie("jwt-token", null);
         cookie.setMaxAge(0); // Establecer la expiración en cero para eliminar la cookie
@@ -49,7 +50,7 @@ public class AuthController {
 
         response.addCookie(cookie);
 
-        return "Sesión cerrada exitosamente";
+        return new RedirectView("/");
     }
 
 }
