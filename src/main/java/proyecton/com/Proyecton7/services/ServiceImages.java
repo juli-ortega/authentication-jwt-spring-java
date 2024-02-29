@@ -26,7 +26,7 @@ public class ServiceImages {
                 return imagesRepository.save(images);
             }catch (Exception e) {
                 System.err.println(e.getMessage());
-
+                throw new MiException("Error al guardad imagen");
             }
         }
         return null;
@@ -53,14 +53,14 @@ public class ServiceImages {
                 return imagesRepository.save(imagen);
             } catch (Exception e) {
                 System.err.println(e.getMessage());
-
+                throw new MiException("Error al actualizar imagen");
             }
         }
         return null;
     }
 
 
-    public Images eliminarImagen(MultipartFile archivo, String idImagen) throws MiException{
+    public Boolean eliminarImagen(MultipartFile archivo, String idImagen) throws MiException{
 
         if(archivo != null){
 
@@ -73,14 +73,15 @@ public class ServiceImages {
                     if(respuesta.isPresent()){
                         imagen = respuesta.get();
                         imagesRepository.delete(imagen);
+                        return true;
                     }
                 }
 
             } catch (Exception e) {
                 System.err.println(e.getMessage());
-//                throw new MiException("Error al eliminar imagen");
+                throw new MiException("Error al eliminar imagen");
             }
         }
-        return null;
+        return false;
     }
 }
