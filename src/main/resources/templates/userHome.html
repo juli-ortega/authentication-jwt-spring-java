@@ -20,24 +20,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/auth/login}">Iniciar Sesión</a>
-                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Link</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/auth/register}">Register</a></li>
                                 <li><a class="dropdown-item" th:href="@{/}">Hola, papu</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+
+
+
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link disabled">Link</a>
                         </li>
+                        <form action="/auth/logout" method="post">
+                            <button type="submit" class="btn btn-dark">Cerrar Sesion</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -45,9 +44,8 @@
     </header>
 
     <main class="container">
-        <p>Papu</p>
-        <h1>HOLA: </h1>
-        <p th:text="${username}"></p>
+        <h1>Bienvenido  <p th:text="${username}"></p></h1>
+
     </main>
 
     <footer>
