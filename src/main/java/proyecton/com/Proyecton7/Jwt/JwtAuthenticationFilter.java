@@ -1,4 +1,4 @@
-package proyecton.com.Proyecton7.jwt;
+package proyecton.com.Proyecton7.Jwt;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final proyecton.com.Proyecton7.Jwt.JwtService jwtService;
+    private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
     @Override

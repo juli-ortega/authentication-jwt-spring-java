@@ -10,11 +10,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import proyecton.com.Proyecton7.jwt.JwtAuthenticationFilter;
+import proyecton.com.Proyecton7.Jwt.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -23,34 +24,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(authRequest ->
-                    {
-                        try {
-                            authRequest
-                                    .requestMatchers("/auth/**", "/**", "/resources/static/css", "/resources/static/js").permitAll()
-                                    .requestMatchers("/auth/login").permitAll()
-                                    .anyRequest().authenticated()
-                                    .and().formLogin()
-                                    .loginPage("/auth/login")
-                                    .loginProcessingUrl("/auth/logincheck")
-                                    .usernameParameter("username")
-                                    .passwordParameter("password")
-                                    .defaultSuccessUrl("/").permitAll()
-                                    .and().logout().logoutUrl("/auth/login")
-                                    .logoutUrl("/logout")
-                                    .logoutSuccessUrl("/").permitAll().and().csrf().disable();
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authRequest ->
+                        authRequest
+                                .requestMatchers("/auth/**", "/**", "/css/**", "/js/**", "/img/**").permitAll()
+                                .anyRequest().authenticated()
                 )
-            .sessionManagement(sessionManager->
-                sessionManager
-                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .build();
+                .sessionManagement(sessionManager->
+                        sessionManager
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
 }

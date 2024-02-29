@@ -41,12 +41,12 @@
                             Link
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="@{/auth/register}">Register</a></li>
-                            <li><a class="dropdown-item" href="@{/}">Hola,papu</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/register}">Register</a></li>
+                            <li><a class="dropdown-item" th:href="@{/}">Hola,papu</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+                            <li><button id="logoutButton">Cerrar sesión</button></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -76,5 +76,7 @@
         </div>
     </div>
 </footer>
+
+<script th:src="@{../css/js/logout.js}"></script>
 </body>
 </html>
