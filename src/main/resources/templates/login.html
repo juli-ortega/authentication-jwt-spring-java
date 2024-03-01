@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <link rel="stylesheet" href="css/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;700;900&family=Rubik+Bubbles&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@400;700;900&display=swap"
@@ -11,6 +10,7 @@
     <title>Login Form</title>
 </head>
 <body>
+
 <div id="login_form">
     <!-- Vista cuando un usuario se registra correctamente-->
     <div th:if="${success != null}" class="container">
@@ -18,16 +18,23 @@
         <p th:text="${success}" class="success-message"></p>
     </div>
 
-    <form name="f1" method="post" id="f1" th:action="@{/auth/login}">
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" name="username" required>
+<div id="login_form">
+
+
+    <form id="loginForm" >
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
         <br><br>
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
         <br><br>
         <input type="submit" value="Iniciar sesión">
     </form>
-    <p>¿No tienes una cuenta? <a href="/user/register">Regístrate aquí</a></p>
+    <p>¿No tienes una cuenta? <a th:href=${"/auth/register"}>Regístrate aquí</a></p>
+
+
+    <script src="../css/js/login.js"></script>
+
 </div>
 </body>
 </html>

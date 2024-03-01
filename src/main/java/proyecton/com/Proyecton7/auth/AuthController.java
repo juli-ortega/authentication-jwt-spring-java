@@ -1,43 +1,55 @@
 package proyecton.com.Proyecton7.auth;
 
 import jakarta.servlet.http.Cookie;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import proyecton.com.Proyecton7.Jwt.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
-
 
     @PostMapping(value = "login")
-    public RedirectView login(@ModelAttribute LoginRequest request, HttpServletResponse response) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+    @ResponseBody
+    public String login(@RequestBody LoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
+        // Aquí generas y obtienes el token JWT
         String token = authService.login(request).token;
-        response.addHeader("Authorization", "Bearer " + token);
-        System.out.println("token: " + token);
-        return new RedirectView("/");
+
+        // Crear una cookie HttpOnly y Secure para el token JWT
+        Cookie cookie = new Cookie("jwt-token", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/"); // Establecer el alcance de la cookie
+
+        // Agregar la cookie a la respuesta HTTP
+        httpResponse.addCookie(cookie);
+
+        return "{\"message\": \"Login successful\"}";
     }
 
     @PostMapping(value = "register")
-    public RedirectView register(@ModelAttribute RegisterRequest request,HttpServletResponse response) throws Exception {
-        authService.register(request);
-        String requestString = URLEncoder.encode(String.valueOf(request), StandardCharsets.UTF_8);
-        Cookie cookie = new Cookie("user", requestString);
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request)
+    {
+        return ResponseEntity.ok(authService.register(request));
+    }
+
+
+    @PostMapping("/logout")
+    public RedirectView logout(HttpServletResponse response) {
+        // Eliminar la cookie que contiene el token JWT
+        Cookie cookie = new Cookie("jwt-token", null);
+        cookie.setMaxAge(0); // Establecer la expiración en cero para eliminar la cookie
+        cookie.setPath("/"); // Establecer el alcance de la cookie
+
         response.addCookie(cookie);
+
         return new RedirectView("/");
     }
 

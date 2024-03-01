@@ -20,4 +20,6 @@ public class homeController {
     }
     @GetMapping("/auth/register")
     public String register(){return "register"; }
+
+
 }
