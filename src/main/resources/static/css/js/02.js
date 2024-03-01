@@ -3,18 +3,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const openLoginPopup = document.getElementById('openLoginPopup');
     const modalContainer = document.getElementById('modal_container');
 
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus()
+})
     // Agregar un event listener al enlace de inicio de sesión para abrir el pop-up
-    openLoginPopup.addEventListener('click', function(event) {
+/*    myInput.addEventListener('click', function(event) {
         event.preventDefault(); // Evitar que el enlace navegue a otra página
-        modalContainer.classList.add('show'); // Mostrar el pop-up
+        myModal.toggle(); // Mostrar el pop-up
         loadPopupContent(); // Cargar el contenido del pop-up
-    });
+    });*/
 
     // Agregar un event listener al botón de cerrar del pop-up para cerrarlo
-    const close = document.getElementById('close');
+    /*const close = document.getElementById('close');
     close.addEventListener('click', function() {
         modalContainer.classList.remove('show');
-    });
+    });*/
 });
 
 function loadPopupContent() {
@@ -35,4 +41,4 @@ function loadPopupContent() {
     xhr.open("GET", "/auth/login", true); // Especifica la ruta correcta para obtener el contenido
     xhr.send()
 }
-
+loadPopupContent();

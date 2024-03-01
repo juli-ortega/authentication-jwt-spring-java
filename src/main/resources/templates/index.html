@@ -17,6 +17,23 @@
     <title>PapuServicio | Plataforma de Servicios Freelancer</title>
 
 </head>
+     <div class="modal fade" tabindex="-1" id="myModal" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Iniciar Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="popup-content"></div>
+            </div>
+            <!--<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>-->
+            </div>
+        </div>
+        </div>
 <body>
 <header>
 
@@ -45,37 +62,36 @@
                             <li><a class="dropdown-item" th:href="@{/}">Hola,papu</a></li>
                             <li>
                                 <hr class="dropdown-divider">
+
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Link</a>
-                    </li>
-                </ul>
-                <div>
-                    navvv
+                        <div>
+                            navvv
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <main class="container">
+            <p>Papu</p>
+        </main>
+
+        <footer>
+            <div class="footer_in container">
+                Footer
+                <div class="socialnet">
+                    <ul>
+                        <li><a th:href="@{/}">Instagram</a></li>
+                        <li><a th:href="@{/}">X</a></li>
+                        <li><a th:href="@{/}">LinkedIn</a></li>
+                        <li><a th:href="@{/}">Facebook</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </nav>
-</header>
-<main class="container">
-    <p>Papu</p>
-</main>
-<footer>
-    <div class="footer_in container">
-        Footer
-        <div class="socialnet">
-            <ul>
-                <li><a th:href="@{/}">Instagram</a></li>
-                <li><a th:href="@{/}">X</a></li>
-                <li><a th:href="@{/}">LinkedIn</a></li>
-                <li><a th:href="@{/}">Facebook</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
-
+        </footer>
+        <script src="css/js/02.js"></script>
 <script th:src="@{../css/js/logout.js}"></script>
 </body>
+
 </html>

@@ -10,7 +10,16 @@
     <title>Login Form</title>
 </head>
 <body>
-<div class="dropdown" id="login_form">
+
+<div id="login_form">
+    <!-- Vista cuando un usuario se registra correctamente-->
+    <div th:if="${success != null}" class="container">
+        <h1>Registro Exitoso</h1>
+        <p th:text="${success}" class="success-message"></p>
+    </div>
+
+<div id="login_form">
+
 
     <form id="loginForm" >
         <label for="email">Email:</label>
