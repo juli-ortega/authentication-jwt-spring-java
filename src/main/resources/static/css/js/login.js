@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Evitar el envío del formulario predetermine
 
-        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
         // Crear objeto de datos con las credenciales
         var credentials = {
-            username: username,
+            email: email,
             password: password
         };
 
@@ -23,23 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) {
                 throw new Error('Error en la solicitud de inicio de sesión');
             }
-            // Convertir la respuesta a JSON y retornarla
             return response.json();
         })
         .then(data => {
-            // Manejar la respuesta del servidor y extraer el token JWT
-            const jwtToken = data.token;
-
-            // Almacena el token JWT en localStorage
-            localStorage.setItem('jwtToken', jwtToken);
-
             // Redirigir a la página de perfil del usuario
-            window.location.href = '/user/profile';
+            window.location.href = '/user/home';
         })
         .catch(error => {
-            console.error('Error:', error);
             // Manejar errores
-            throw new Error('Error brother');
+            throw new Error('Parametros incorrectos');
         });
     });
 });
