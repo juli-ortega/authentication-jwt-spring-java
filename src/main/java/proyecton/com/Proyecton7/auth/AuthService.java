@@ -10,6 +10,9 @@ import proyecton.com.Proyecton7.Jwt.JwtService;
 import proyecton.com.Proyecton7.entities.User;
 import proyecton.com.Proyecton7.enumeraciones.Roles;
 import proyecton.com.Proyecton7.repositories.UserRepository;
+
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -19,9 +22,10 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user = userRepository.findUserByUsername(request.getUsername()).orElseThrow();
-        String token = jwtService.getToken(user);
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        UserDetails email = userRepository.findUserByEmail(request.getEmail()).orElseThrow();
+
+        String token = jwtService.getToken(email);
 
         return  AuthResponse.builder()
                 .token(token)
@@ -29,13 +33,13 @@ public class AuthService {
     }
     public AuthResponse register(RegisterRequest request) {
         User user = User.builder()
-                .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .dni(request.getDni())
                 .phone_number(request.getPhone_number())
+                .alta(request.getAlta())
                 .rol(Roles.USER)
                 .build();
         userRepository.save(user);

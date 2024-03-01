@@ -72,11 +72,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.grupo5</groupId>
-            <artifactId>AppSalud</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 
 
     </dependencies>
