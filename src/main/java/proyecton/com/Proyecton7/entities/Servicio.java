@@ -10,12 +10,12 @@ import java.util.List; // Cambio de ArrayList a List
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class Service {
+public class Servicio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // Genera automáticamente el ID
     private Long id;
-    private String descripcion;
-    @OneToMany(mappedBy = "service") // Se establece la relación con la entidad Images
+    private String description;
+    @OneToMany(mappedBy = "servicio") // Se establece la relación con la entidad Images
     private List<Images> images; // Cambio de ArrayList a List
     private Double price;
     private boolean highOrLow;//alta o baja
