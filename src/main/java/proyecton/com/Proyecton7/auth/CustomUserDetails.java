@@ -6,6 +6,7 @@ public interface CustomUserDetails extends UserDetails {
 
     String getEmail();
     String getFirstname();
+    String getPassword();
 
     @Override
     default String getUsername() {

@@ -35,17 +35,18 @@ public class UserController {
                         .parseClaimsJws(token);
 
                 // Extrae el nombre de la persona para saludarla
-                Claims claims = Jwts.parserBuilder().build().parseClaimsJws(token).getBody();
+                Claims claims = jws.getBody();
                 modelMap.put("firstname", claims.get("firstname"));
 
                 return "userHome.html";
             } catch (Exception e) {
                 // Manejar el error de validación del token JWT
-                return "Error al validar el token JWT";
+                return "redirect:/#myModal";
+
             }
         } else {
             //Si no tiene el token en la cookie, retorna al login
-            return "login.html";
+            return "redirect:/#myModal";
         }
     }
 }

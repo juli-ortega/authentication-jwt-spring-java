@@ -18,24 +18,22 @@
         <p th:text="${success}" class="success-message"></p>
     </div>
 
-<div id="login_form">
+<div>
 
-
-    <form id="loginForm" >
+    <form id="loginForm" class="popup-form">
         <label for="email">Email:</label>
         <input type="text" id="email" name="email" required>
         <br><br>
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
         <br><br>
-        <input type="submit" value="Iniciar sesión">
+        <input type="submit" value="Iniciar sesión" id="loginButton">
     </form>
     <p>¿No tienes una cuenta? <a th:href=${"/auth/register"}>Regístrate aquí</a></p>
 
 
-    <script src="../css/js/login.js"></script>
-
 </div>
+    <script src="../css/js/login.js"></script>
 </body>
 </html>
 

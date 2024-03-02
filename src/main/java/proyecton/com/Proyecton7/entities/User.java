@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import proyecton.com.Proyecton7.auth.CustomUserDetails;
 import proyecton.com.Proyecton7.enumeraciones.Roles;
 
@@ -20,8 +21,8 @@ import java.util.List;
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"email", "dni"})
 })
-
-public class User implements UserDetails, CustomUserDetails {
+@Component
+public class User implements CustomUserDetails {
 
     @Id
     @GeneratedValue()
@@ -46,6 +47,11 @@ public class User implements UserDetails, CustomUserDetails {
     }
 
     @Override
+    public String getFirstname() {
+        return firstname;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -64,9 +70,10 @@ public class User implements UserDetails, CustomUserDetails {
     public boolean isEnabled() {
         return true;
     }
-    
+
     @PrePersist
     protected void onCreate() {
         alta = LocalDateTime.now(); // Establecer la fecha de alta como el momento actual al crear un nuevo usuario
     }
+
 }

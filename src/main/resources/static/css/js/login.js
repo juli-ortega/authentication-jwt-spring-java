@@ -1,37 +1,52 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Evitar el envío del formulario predetermine
 
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
+    // Agregar un evento que se activará cuando se muestre el modal
+    var myModal = document.getElementById('myModal');
+    var myInput = document.getElementById('myInput');
 
-        // Crear objeto de datos con las credenciales
-        var credentials = {
-            email: email,
-            password: password
-        };
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus();
+    });
 
-        // Realizar solicitud HTTP POST al endpoint de autenticación
-        fetch('/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la solicitud de inicio de sesión');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Redirigir a la página de perfil del usuario
-            window.location.href = '/user/home';
-        })
-        .catch(error => {
-            // Manejar errores
-            throw new Error('Parametros incorrectos');
-        });
+    // Agregar evento de envío al formulario
+    document.addEventListener("submit", function(event) {
+        // Verificar si el formulario enviado está dentro de un popup
+        if (event.target.classList.contains("popup-form")) {
+            // Evitar que el formulario se envíe de manera predeterminada
+            event.preventDefault();
+
+            // Obtener referencia al formulario
+            var form = event.target;
+
+            var email = form.querySelector("#email").value;
+            var password = form.querySelector("#password").value;
+
+            // Crear un objeto de datos con las credenciales del usuario
+            var credentials = {
+                email: email,
+                password: password
+            };
+
+            // Realizar una solicitud HTTP POST al endpoint de autenticación
+            fetch('/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            })
+            .then(response => {
+                // Verificar si la respuesta es exitosa
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud de inicio de sesión');
+                }
+                // Si la respuesta es exitosa, redirigir al usuario a la página de inicio
+                window.location.href = '/user/home';
+            })
+            .catch(error => {
+                // Capturar y manejar errores
+                console.error('Error en la solicitud de inicio de sesión:', error.message);
+            });
+        }
     });
 });

@@ -15,19 +15,24 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import proyecton.com.Proyecton7.auth.CustomUserDetails;
+
 @Service
 public class JwtService {
     private static final String SECRET_KEY="586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
-    public String getToken(UserDetails email) {
-        return getToken(new HashMap<>(), email);
+    public String getToken(CustomUserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("firstname", userDetails.getFirstname()); // Obtener el firstName del UserDetails
+        return getToken(claims, userDetails);
     }
 
-    private String getToken(Map<String,Object> extraClaims, UserDetails email) {
+    private String getToken(Map<String,Object> extraClaims, UserDetails userDetails) {
+        System.out.println(extraClaims);
         return Jwts
             .builder()
             .setClaims(extraClaims)
-            .setSubject(email.getUsername())// Agrega el firstname como un claim
+            .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
             .signWith(getKey(), SignatureAlgorithm.HS256)
