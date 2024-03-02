@@ -30,7 +30,7 @@ public class Images {
 
 
     @ManyToOne // Indica que esta entidad pertenece a múltiples instancias de la entidad Servicio
-    @JoinColumn(name = "service_id") // Columna en la tabla Images que referencia al Servicio
-    private Service service; // Añadimos la referencia al Servicio
+    @JoinColumn(name = "servicio_id") // Columna en la tabla Images que referencia al Servicio
+    private Servicio servicio; // Añadimos la referencia al Servicio
 
 }
