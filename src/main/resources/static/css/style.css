@@ -1,8 +1,14 @@
+html,body{
+    height: 100%;
+}
 .grid-layout {
     display: grid;
-    grid-template-areas: "header header" "main main" "hero hero" "footer footer";
-    grid-template-columns: auto auto;
-    grid-template-rows: 76px auto auto 150px;
+    margin:0;
+    grid-template-areas: "header header"
+                            "main main"
+                            "footer footer";
+    grid-template-rows: 76px auto  150px;
+    min-height: 100%;
 }
 
 header {
