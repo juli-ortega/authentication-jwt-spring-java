@@ -1,6 +1,12 @@
-
+.grid-layout {
+    display: grid;
+    grid-template-areas: "header header" "main main" "hero hero" "footer footer";
+    grid-template-columns: auto auto;
+    grid-template-rows: 76px auto auto 150px;
+}
 
 header {
+    grid-area: header;
     background: #380B61;
 }
 
@@ -24,19 +30,20 @@ ul{
 }
 
 footer {
+    grid-area: footer;
     background: #380B61;
 }
 
 .main-container {
     /*max-width: 1200px;  Ajusta el ancho máximo según tus necesidades */
-    width: 100%;
-    margin: 0 auto; /* Centra el contenido horizontalmente */
+    grid-area: main; /* Centra el contenido horizontalmente */
     /*padding: 20px;  Añade un espacio alrededor del contenido */
     border: 1px solid;
 }
 
 .hero-section {
-    position: static; 
+    position: static;
+    grid-area: hero;
     /* height: 300px; Ajusta la altura según tus necesidades */
     background-color: aquamarine;
     background-size: cover; /* Ajusta el tamaño de la imagen de fondo para cubrir completamente el contenedor */
