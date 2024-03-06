@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Images</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #333;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #555;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+        }
+        tr:nth-child(even) {
+            background-color: #555;
+        }
+        .image-block {
+            background-color: #666;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Tus Servicios</h1>
+
+<div class="row">
+    <!-- Utilizamos Thymeleaf para iterar sobre la lista de servicios -->
+    <div class="col-md-4" th:each="servicio : ${service}">
+        <div class="card mb-4">
+            <img th:src="@{/imagen/service/__${servicio.id}__}" class="card-img-top" alt="Imagen del servicio" style="width: 100%; height:100%">
+            <div class="card-body">
+                <h5 class="card-title">Nombre Servicio: <span th:text="${servicio.name}"></span></h5>
+                <p class="card-text">Descripción: <span th:text="${servicio.description}"></span></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Precio: <span th:text="${servicio.price}"></span></li>
+                <li class="list-group-item">Disponibilidad: <span th:text="${servicio.availability}"></span></li>
+                <li class="list-group-item">Tiempo Estimado: <span th:text="${servicio.estimatedTime}"></span></li>
+                <li class="list-group-item">Requerimientos: <span th:text="${servicio.requirements}"></span></li>
+                <li class="list-group-item">Características Específicas: <span th:text="${servicio.specificCharacteristics}"></span></li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">link</a>
+                <a href="#" class="card-link">link</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

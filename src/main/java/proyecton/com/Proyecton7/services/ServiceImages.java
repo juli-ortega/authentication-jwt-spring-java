@@ -7,6 +7,7 @@ import proyecton.com.Proyecton7.entities.Images;
 import proyecton.com.Proyecton7.exceptions.MiException;
 import proyecton.com.Proyecton7.repositories.ImagesRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,13 +18,16 @@ public class ServiceImages {
     public Images guardarImagen(MultipartFile archivo) throws MiException {
         if (archivo != null){
             try{
-                Images images = new Images();
 
-                images.setMime(archivo.getContentType());
-                images.setNombre(archivo.getName());
-                images.setContenido(archivo.getBytes());
+                    Images images = new Images();
 
-                return imagesRepository.save(images);
+                    images.setMime(archivo.getContentType());
+                    images.setNombre(archivo.getName());
+                    images.setContenido(archivo.getBytes());
+
+                    return imagesRepository.save(images);
+
+
             }catch (Exception e) {
                 System.err.println(e.getMessage());
                 throw new MiException("Error al guardad imagen");
@@ -83,5 +87,13 @@ public class ServiceImages {
             }
         }
         return false;
+    }
+    public List<Images> listImages() throws MiException {
+        try {
+            return imagesRepository.findAll();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            throw new MiException("Error llistando  images papu");
+        }
     }
 }

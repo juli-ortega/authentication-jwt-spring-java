@@ -54,12 +54,15 @@
 <body>
 <h2>Create Service</h2>
 <form th:action="@{/servicio/creado}" method="POST" enctype="multipart/form-data">
+    <label for="name">Nombre:</label><br>
+    <input type="text" id="name" name="name" ><br>
+
     <label for="description">Descripcion:</label><br>
     <input type="text" id="description" name="description" ><br>
 
     <!--  -->
     <label for="images">Imagenes:</label><br>
-    <input type="file" id="images" name="images" multiple="multiple" ><br>
+    <input type="file" id="images" name="archivo" multiple="multiple" ><br>
 
     <label for="price">Precio:</label><br>
     <input type="number" id="price" name="price" ><br>
