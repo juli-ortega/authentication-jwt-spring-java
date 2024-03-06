@@ -52,10 +52,10 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="modal" data-bs-target="#myModal" id="myInput"
-                       href="javascript:void(0)">Iniciar Sesión</a>
+                        href="javascript:void(0)">Iniciar Sesión</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/auth/register}">Register</a>
+                    <a class="nav-link active" th:href="@{/auth/register}">Crear una Cuenta</a>
                 </li>
                 <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -76,21 +76,19 @@
 
 <main class="main-container">
     <div class="hero-section" style="background-image: url('css/img/istockphoto-1460853312-612x612.jpg');">
-        <div class="container">
-            <div class="hero-content">
-                <p>¡Bienvenido a Serviprime! <br>Encuentra los mejores freelancers de América Latina para tus
-                    proyectos. <br>Comienza hoy y lleva tus ideas al siguiente nivel.</p>
+            <div class="hero-content container">
+                <p class="text1"><span>¡Bienvenido a <b>Serviprime!</b></span> <br>Encuentra los mejores freelancers de América Latina para tus
+                    proyectos <br>Comienza hoy y lleva tus ideas al siguiente nivel</p>
             </div>
-            <div class="search-bar">
+            <div class="search-bar container">
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
-            <div class="popular-services">
+            <div class="popular-services container">
                 <!-- Aquí puedes colocar tus servicios populares -->
             </div>
-        </div>
     </div>
 </main>
 
