@@ -10,10 +10,9 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author chris
  */
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
-@Getter @Setter    //Agrego lombok
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor   //Agrego lombok
 public class Images {
     @Id
     @GeneratedValue(generator = "uuid") //Genero valor de forma automática.
@@ -26,11 +25,8 @@ public class Images {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    @Column(length = 1000000)
     private byte[] contenido;
 
-
-    @ManyToOne // Indica que esta entidad pertenece a múltiples instancias de la entidad Servicio
-    @JoinColumn(name = "servicio_id") // Columna en la tabla Images que referencia al Servicio
-    private Servicio servicio; // Añadimos la referencia al Servicio
 
 }

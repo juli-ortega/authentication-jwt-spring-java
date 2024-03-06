@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List; // Cambio de ArrayList a List
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+import proyecton.com.Proyecton7.entities.Images;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
@@ -15,8 +16,10 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.AUTO) // Genera automáticamente el ID
     private Long id;
     private String description;
-    @OneToMany(mappedBy = "servicio") // Se establece la relación con la entidad Images
-    private List<Images> images; // Cambio de ArrayList a List
+    private String name;
+// Se establece la relación con la entidad Images
+    @OneToOne
+    private Images images;
     private Double price;
     private boolean highOrLow;//alta o baja
     private int Customer;//valoracion
