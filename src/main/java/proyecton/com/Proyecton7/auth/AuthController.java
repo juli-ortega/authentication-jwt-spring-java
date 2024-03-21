@@ -4,13 +4,19 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
+import proyecton.com.Proyecton7.exceptions.MiException;
 
-@RestController
+import java.util.Collections;
+
+@Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
@@ -31,18 +37,24 @@ public class AuthController {
         // Agregar la cookie a la respuesta HTTP
         httpResponse.addCookie(cookie);
 
-        return "{\"message\": \"Login successful\"}";
+        return "userHome.html";
     }
 
     @PostMapping(value = "register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request)
-    {
-        return ResponseEntity.ok(authService.register(request));
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        try {
+            AuthResponse response = authService.register(request);
+            return ResponseEntity.ok(response);
+        } catch (MiException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("message", e.getMessage()));
+        }
     }
 
 
+
+
     @PostMapping("/logout")
-    public RedirectView logout(HttpServletResponse response) {
+    public String logout(HttpServletResponse response) {
         // Eliminar la cookie que contiene el token JWT
         Cookie cookie = new Cookie("jwt-token", null);
         cookie.setMaxAge(0); // Establecer la expiración en cero para eliminar la cookie
@@ -50,7 +62,7 @@ public class AuthController {
 
         response.addCookie(cookie);
 
-        return new RedirectView("/");
+        return "index.html";
     }
 
 }

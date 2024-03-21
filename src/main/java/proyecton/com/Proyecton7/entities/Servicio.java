@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartFile;
-import proyecton.com.Proyecton7.entities.Images;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor

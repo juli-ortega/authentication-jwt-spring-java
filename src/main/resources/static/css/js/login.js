@@ -40,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!response.ok) {
                     throw new Error('Error en la solicitud de inicio de sesión');
                 }
-                // Si la respuesta es exitosa, redirigir al usuario a la página de inicio
-                window.location.href = '/user/home';
+
             })
             .catch(error => {
                 // Capturar y manejar errores

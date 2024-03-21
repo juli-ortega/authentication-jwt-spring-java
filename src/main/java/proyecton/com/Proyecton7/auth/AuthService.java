@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 import proyecton.com.Proyecton7.Jwt.JwtService;
 import proyecton.com.Proyecton7.entities.User;
 import proyecton.com.Proyecton7.enumeraciones.Roles;
+import proyecton.com.Proyecton7.exceptions.MiException;
 import proyecton.com.Proyecton7.repositories.UserRepository;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +30,10 @@ public class AuthService {
                 .token(token)
                 .build();
     }
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request) throws MiException {
+
+        validate(request);
+
         User user = User.builder()
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstname(request.getFirstname())
@@ -48,5 +50,54 @@ public class AuthService {
                 .token(jwtService.getToken(user))
                 .build();
     }
+
+
+
+    private void validate(RegisterRequest request) throws MiException {
+        // Extraer los campos del objeto RegisterRequest
+        String dni = request.getDni();
+        String password = request.getPassword();
+        String firstname = request.getFirstname();
+        String lastname = request.getLastname();
+        String email = request.getEmail();
+        String phone_number = request.getPhone_number();
+
+        // Validar que los campos no sean nulos o vacíos
+        if (dni == null || dni.isEmpty()) {
+            throw new MiException("El campo DNI no debe ser nulo o vacío.");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new MiException("El campo password no debe ser nulo o vacío.");
+        }
+        if (firstname == null || firstname.isEmpty()) {
+            throw new MiException("El campo firstname no debe ser nulo o vacío.");
+        }
+        if (lastname == null || lastname.isEmpty()) {
+            throw new MiException("El campo lastname no debe ser nulo o vacío.");
+        }
+        if (email == null || email.isEmpty()) {
+            throw new MiException("El campo email no debe ser nulo o vacío.");
+        }
+        if (phone_number == null || phone_number.isEmpty()) {
+            throw new MiException("El campo phone_number no debe ser nulo o vacío.");
+        }
+
+        // Validar longitud del DNI
+        if (dni.length() < 7 || dni.length() > 9) {
+            throw new MiException("El campo DNI debe tener entre 7 y 9 caracteres.");
+        }
+
+        // Validar contraseña
+        if (!password.matches(".*[a-z].*") || !password.matches(".*[A-Z].*") || !password.matches(".*\\d.*")) {
+            throw new MiException("La contraseña debe contener al menos una minúscula, una mayúscula y un número.");
+        }
+
+        // Validar formato de email
+        if (!email.contains("@") || !email.endsWith(".com")) {
+            throw new MiException("El campo email debe tener un formato válido (ejemplo@example.com).");
+        }
+    }
+
+
 
 }
